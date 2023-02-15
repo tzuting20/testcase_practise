@@ -28,4 +28,13 @@ function deposit($i,$m) {
 	mysqli_stmt_execute($stmt);
 	return mysqli_affected_rows($db);
 }
+
+function withdraw($i,$m) {
+	global $db;
+	$sql = "update bank set balance=balance -? where bid=?";
+	$stmt = mysqli_prepare($db, $sql);
+	mysqli_stmt_bind_param($stmt, "ii", $m, $i);
+	mysqli_stmt_execute($stmt);
+	return mysqli_affected_rows($db);
+}
 ?>

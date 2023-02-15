@@ -68,8 +68,40 @@ function testDeposit() {
     }
 }
 
+function testWithdraw() {
+    echo "<br><br>test withdraw<br><br>";
+    echo deposit(3,10000);
+    echo deposit(4,10000);
+    $testcase = [
+        //測試提款
+        [3,10000,1],
+        [4,10000,1],
+        //測試額度
+        [3,1,0],
+        [4,1,0]
+    ];
+    for ($i = 0; $i < count($testcase); $i++) { 
+        echo "testing {$testcase[$i][0]}, {$testcase[$i][1]}: ";
+        if ($testcase[$i][2] == true) {
+            if (withdraw($testcase[$i][0], $testcase[$i][1]) == $testcase[$i][2]) {
+                echo "ok";
+            } else {
+                echo "error";
+            }
+        } else {
+            if (withdraw($testcase[$i][0], $testcase[$i][1]) == $testcase[$i][2]) {
+                echo "ok";
+            } else {
+                echo "error";
+            }
+        }
+        echo "<br>";
+    }
+}
+
 ?>
 <?php
     testNewAct();
     testDeposit();
+    testWithdraw();
 ?>
