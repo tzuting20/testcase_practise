@@ -99,9 +99,56 @@ function testWithdraw() {
     }
 }
 
+function testLock() {
+    echo "<br><br>test lock<br><br>";
+    $testcase = [
+        //鎖定測試
+        [5, 1],
+        [6, 1],
+        //重複鎖定測試
+        [7,1],
+        [7,0]
+    ];
+    for ($i = 0; $i < count($testcase); $i++) { 
+        echo "testing {$testcase[$i][0]}, {$testcase[$i][1]}: ";
+        if ($testcase[$i][1] == true) {
+            if (lock($testcase[$i][0]) == $testcase[$i][1]) {
+                echo "ok";
+            } else {
+                echo "error";
+            }
+        } else {
+            if (lock($testcase[$i][0]) == $testcase[$i][1]) {
+                echo "ok";
+            } else {
+                echo "error";
+            }
+        }
+        echo "<br>";
+    }
+    //存提款測試
+    for ($i = 5; $i<=6; $i++) {
+        echo "test bid:{$i}";
+        echo "<br>deposit test:";
+        if (deposit(5,100) == 0) {
+            echo "ok";
+        } else {
+            echo "error";
+        }
+        echo "<br>withdraw test:";
+        if (withdraw(5,100) == 0) {
+            echo "ok";
+        } else {
+            echo "error";
+        }
+        echo "<br>";
+    }
+}
+
 ?>
 <?php
     testNewAct();
     testDeposit();
     testWithdraw();
+    testLock();
 ?>
